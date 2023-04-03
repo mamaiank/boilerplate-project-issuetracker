@@ -11,30 +11,15 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    env:
-      DB: ${{ secrets.DB }}
-    strategy:
-      matrix:
-        node-version: [14.x]
-
     steps:
       - name: Sync with Glitch
         uses: wei/git-sync@v1
-        run: |
-          git config receive.denyCurrentBranch ignore
         env:
           SOURCE_REPO: "https://github.com/mamaiank/boilerplate-project-issuetracker.git"
           SOURCE_BRANCH: "main"
           DESTINATION_REPO: ${{ secrets.glitch_git_URL }}
           DESTINATION_BRANCH: "master"
         with:
-          args: $SOURCE_REPO $SOURCE_BRANCH $DESTINATION_REPO $DESTINATION_BRANCH
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm install
-      - run: npm test
-
+          args: $SOURCE_REPO $SOURCE_BRANCH $DESTINATION_REPO $DESTINATION_BRANCH --force
+      
       

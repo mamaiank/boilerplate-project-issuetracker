@@ -8,14 +8,22 @@ on:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
+
     env:
       DB: ${{ secrets.DB }}
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [14.x, 15.x]
 
     steps:
+      - name: Sync with Glitch
+        uses: wei/git-sync@v1
+        with:
+          src: ./
+          dst: ${{ secrets.glitch_git_URL }}
+          args: --force
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -23,12 +31,5 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm install
       - run: npm test
-      - name: Set Git config
-        run: |
-          git config receive.denyCurrentBranch ignore
-          git remote add ${{ secrets.glitch_git_URL }}
-          git fetch ${{ secrets.glitch_git_URL }} master
-          git pull ${{ secrets.glitch_git_URL }} master --ff-only
-      - name: Push changes to Glitch
-        run: |
-          git push ${{ secrets.glitch_git_URL }} HEAD:master
+
+      

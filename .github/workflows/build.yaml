@@ -8,9 +8,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     env:
       DB: ${{ secrets.DB }}
     strategy:
@@ -27,7 +25,6 @@ jobs:
       - run: npm test
 
   repo-sync:
-    if: github.event.push == true
     runs-on: ubuntu-latest
     steps:
     - name: repo-sync

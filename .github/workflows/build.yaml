@@ -28,6 +28,7 @@ jobs:
           git config receive.denyCurrentBranch ignore
           git remote add destination ${{ secrets.glitch_git_URL }}
           git fetch destination master
+          git pull destination master --ff-only
       - name: Push changes to Glitch
         run: |
           git push destination HEAD:master

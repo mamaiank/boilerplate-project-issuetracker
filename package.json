@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon --exec babel-node src/server.js",
     "test": "mocha --require @babel/register --timeout 5000 --recursive --exit --ui tdd src/tests/",
-    "build": "babel src -d dist --ignore \"src/**/*.test.js",
+    "build": "babel src -d dist --ignore \"src/**/*.test.js\"",
     "start": "node dist/server.js"
   },
   "dependencies": {

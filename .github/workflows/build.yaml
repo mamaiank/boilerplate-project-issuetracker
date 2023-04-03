@@ -15,15 +15,18 @@ jobs:
       DB: ${{ secrets.DB }}
     strategy:
       matrix:
-        node-version: [14.x, 15.x]
+        node-version: [14.x]
 
     steps:
       - name: Sync with Glitch
         uses: wei/git-sync@v1
+        env:
+          SOURCE_REPO: "https://github.com/glitchdotcom/devto.git"
+          SOURCE_BRANCH: "main"
+          DESTINATION_REPO: ${{ secrets.glitch_git_URL }}
+          DESTINATION_BRANCH: "master"
         with:
-          src: ./
-          dst: ${{ secrets.glitch_git_URL }}
-          args: --force
+          args: $SOURCE_REPO $SOURCE_BRANCH $DESTINATION_REPO $DESTINATION_BRANCH
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3

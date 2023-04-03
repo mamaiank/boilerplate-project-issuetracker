@@ -23,16 +23,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm install
       - run: npm test
-
-  repo-sync:
-    runs-on: ubuntu-latest
-    - name: repo-sync
-      uses: wei/git-sync@v1
-      run: git config receive.denyCurrentBranch ignore
-      env:
-        SOURCE_REPO: "https://github.com/mamaiank/boilerplate-project-issuetracker.git"
-        SOURCE_BRANCH: "main"
-        DESTINATION_REPO: ${{ secrets.glitch_git_URL }}
-        DESTINATION_BRANCH: "master"
-      with:
-        args: $SOURCE_REPO $SOURCE_BRANCH $DESTINATION_REPO $DESTINATION_BRANCH
+      - name: Set Git config
+        run: |
+          git config receive.denyCurrentBranch ignore
+          git remote add destination ${{ secrets.glitch_git_URL }}
+          git fetch destination master
+      - name: Push changes to Glitch
+        run: |
+          git push destination HEAD:master

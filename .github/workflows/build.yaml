@@ -20,6 +20,8 @@ jobs:
     steps:
       - name: Sync with Glitch
         uses: wei/git-sync@v1
+        run: |
+          git config receive.denyCurrentBranch ignore
         env:
           SOURCE_REPO: "https://github.com/mamaiank/boilerplate-project-issuetracker.git"
           SOURCE_BRANCH: "main"

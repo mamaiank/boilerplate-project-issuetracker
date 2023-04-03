@@ -1,5 +1,5 @@
 "use strict";
-import issueController from "../controllers/issueController";
+const issueController = require("../controllers/issueController").default;
 
 module.exports = function (app) {
   app

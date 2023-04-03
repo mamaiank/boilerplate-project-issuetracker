@@ -26,11 +26,9 @@ jobs:
 
   repo-sync:
     runs-on: ubuntu-latest
-    steps:
-    - name: Set Git config
-      run: git config receive.denyCurrentBranch ignore
     - name: repo-sync
       uses: wei/git-sync@v1
+      run: git config receive.denyCurrentBranch ignore
       env:
         SOURCE_REPO: "https://github.com/mamaiank/boilerplate-project-issuetracker.git"
         SOURCE_BRANCH: "main"

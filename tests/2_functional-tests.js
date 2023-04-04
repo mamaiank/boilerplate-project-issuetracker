@@ -317,6 +317,7 @@ suite("Functional Tests", async function () {
           done(err);
         } else {
           await delay();
+          chai.request(server).get('/')
           done();
         }
       });

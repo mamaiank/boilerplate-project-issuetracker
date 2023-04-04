@@ -1,5 +1,5 @@
-import { Issue, Project } from "../models/models";
-import Helper from "../utils/helpers";
+const { Issue, Project } = require("../models/models");
+const Helper = require("../utils/helpers");
 
 const issueController = {
   viewIssues: async (req, res) => {
@@ -193,4 +193,4 @@ const issueController = {
   },
 };
 
-export default issueController;
+module.exports = issueController;

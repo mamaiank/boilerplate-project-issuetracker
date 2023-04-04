@@ -13,4 +13,4 @@ const Helper = {
   },
 };
 
-export default Helper;
+module.exports = Helper;
